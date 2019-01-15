@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import PageHeader from '../template/pageHeader'
 
 export default class Processo extends Component {
     render(){
         return(
             <div>
-                <h1>Processo</h1>
+                <PageHeader name='Processos' small='Cadastro'></PageHeader>
             </div>
         )
     }
