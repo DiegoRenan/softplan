@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
+import PageHeader from '../template/pageHeader'
+import UserForm from './userForm'
+import UserList from './userList'
 
 export default class User extends Component {
     render(){
         return(
             <div>
-                <h1>User</h1>
+                <PageHeader name='Users' small='Cadastro'></PageHeader>
+                <UserForm />
+                <UserList />
             </div>
         )
     }
