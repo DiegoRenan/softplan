@@ -5,7 +5,6 @@ import PageHeader from '../template/pageHeader'
 import ProcessoForm from './processoForm'
 import ProcessoList from './processoList'
 
-
 export default class Processo extends Component {
 
     constructor(props){
