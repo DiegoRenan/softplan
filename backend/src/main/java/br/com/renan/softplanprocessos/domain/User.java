@@ -28,11 +28,11 @@ public class User implements Serializable{
 	public User() {
 	}
 	
-	public User(String id, String userName, Role role, String password) {
+	public User(String id, String userName, String role, String password) {
 		super();
 		this.id = id;
 		this.username = userName;
-		this.role = role;
+		this.role = Role.valueOf(role);
 		this.password = password;
 	}
 	
@@ -69,12 +69,12 @@ public class User implements Serializable{
 		this.processos = processos;
 	}
 	
-	public Role getRole() {
-		return role;
+	public String getRole() {
+		return role.name();
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRole(String role) {
+		this.role = Role.valueOf(role);
 	}
 
 	@Override

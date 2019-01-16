@@ -2,8 +2,8 @@ package br.com.renan.softplanprocessos.dto;
 
 import java.io.Serializable;
 
-import br.com.renan.softplanprocessos.domain.User;
 import br.com.renan.softplanprocessos.domain.Role;
+import br.com.renan.softplanprocessos.domain.User;
 
 public class UserDTO implements Serializable{
 	
@@ -19,7 +19,7 @@ public class UserDTO implements Serializable{
 	public UserDTO(User obj) {
 		this.id = obj.getId();
 		this.username = obj.getUsername();
-		this.role = obj.getRole();
+		this.role = Role.valueOf(obj.getRole());
 		this.password = obj.getPassword();
 	}
 	
@@ -48,12 +48,12 @@ public class UserDTO implements Serializable{
 		this.id = id;
 	}
 
-	public Role getRole() {
-		return role;
+	public String getRole() {
+		return role.name();
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRole(String role) {
+		this.role = Role.valueOf(role);
 	}
 	
 }

@@ -37,9 +37,9 @@ public class Instantiation implements CommandLineRunner{
 		userRepository.deleteAll();
 		processoRepository.deleteAll();
 		
-		User maria = new User(null, "Maria Brown", Role.ADMINISTRADOR, bCryptPasswordEncoder.encode("password"));
-		User alex = new User(null, "user", Role.TRIADOR, bCryptPasswordEncoder.encode("password"));
-		User bob = new User(null, "Bob Grey", Role.TRIADOR, bCryptPasswordEncoder.encode("password"));
+		User maria = new User(null, "Maria Brown", "ADMINISTRADOR", bCryptPasswordEncoder.encode("password"));
+		User alex = new User(null, "user", "TRIADOR", bCryptPasswordEncoder.encode("password"));
+		User bob = new User(null, "Bob Grey", "TRIADOR", bCryptPasswordEncoder.encode("password"));
 		
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 		

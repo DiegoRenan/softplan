@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ public class UserResource {
 	@Autowired
 	private UserService service; 
 	
+	@CrossOrigin
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> findAll(){
 		List<User> list = service.findAll();
@@ -33,13 +35,15 @@ public class UserResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<UserDTO> findById(@PathVariable String id){
 		User obj = service.findById(id);
 		return ResponseEntity.ok().body(new UserDTO(obj));
 	}
 	
-	@Secured("ADMINISTRADOR")
+	//@Secured("ADMINISTRADOR")
+	@CrossOrigin
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody UserDTO objDto){
 		User obj = service.fromDTO(objDto);
@@ -48,6 +52,7 @@ public class UserResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@CrossOrigin
 	@Secured("ADMINISTRADOR")
 	@RequestMapping(value="/{id}/edit", method=RequestMethod.PUT)
  	public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id) {
@@ -57,6 +62,7 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@CrossOrigin
 	@Secured("ADMINISTRADOR")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable String id){
@@ -64,6 +70,7 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/{id}/processos", method=RequestMethod.GET)
 	public ResponseEntity<List<Processo>> findProcessos(@PathVariable String id){
 		User obj = service.findById(id);

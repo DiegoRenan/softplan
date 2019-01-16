@@ -71,7 +71,7 @@ public class UserService implements UserDetailsService{
 	    User user = repository.findByUsername(username);
 	    if(user != null) {
 	    	List<GrantedAuthority> roles = new ArrayList<>();
-	    	roles.add(new SimpleGrantedAuthority(user.getRole().name()));
+	    	roles.add(new SimpleGrantedAuthority(user.getRole()));
 	    	
 	        List<GrantedAuthority> authorities = roles;
 	        return buildUserForAuthentication(user, authorities);
