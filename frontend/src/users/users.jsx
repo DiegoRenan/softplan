@@ -15,7 +15,8 @@ export default class User extends Component {
         this.handleChangeUsername = this.handleChangeUsername.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
         this.handleChangeRole = this.handleChangeRole.bind(this)
-        
+        this.handleRemove = this.handleRemove.bind(this)
+
         this.handleAdd = this.handleAdd.bind(this)
         
         this.refresh();
@@ -49,6 +50,11 @@ export default class User extends Component {
             .then(resp => this.refresh())
     }
 
+    handleRemove(user){
+        axios.delete(`${URL}/${user.id}`)
+            .then(resp => this.refresh())
+    }
+
     render(){
         return(
             <div>
@@ -60,7 +66,8 @@ export default class User extends Component {
                     handleChangePassword={this.handleChangePassword} 
                     handleChangeRole={this.handleChangeRole} 
                     handleAdd={this.handleAdd}/>
-                <UserList list={this.state.list}/>
+                <UserList list={this.state.list}
+                    handleRemove={this.handleRemove}/>
             </div>
         )
     }
