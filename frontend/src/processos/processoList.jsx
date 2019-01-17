@@ -1,33 +1,32 @@
 import React from 'react'
 import IconButton from '../template/iconsButton'
+import Grid from '../template/grid'
 
 export default props => {
 
     const renderRows = () => {
         const list = props.list || []
-    
+
         return list.map( proc =>
-            <ul key={proc.id}>
-                <li >
-                    {proc.title}
+            
+            <div className="list-group" key={proc.id}>
+                <a href="#" className="list-group-item list-group-item-success">
+                   {proc.title}
+                </a>
+                
+                <li href="#" className="list-group-item ">
+                    {proc.body}
                 </li>
-                    <li>
-                    <a href={`#/users/${proc.id}`}>
-                        <span className="btn btn-default btn-sm glyphicon glyphicon-pencil"></span>
-                    </a>
-                </li>
-                <li>
-                    <IconButton style='danger' icon='trash-o'
-                        onClick={() => props.handleRemove(proc)} />
-                </li>
-                </ul>
-            ) 
+            </div>
+        ) 
     }
 
     return(
         
         <div>
-            {renderRows()}
+            <Grid cols= "12 12 12">
+                {renderRows()}
+            </Grid>
         </div> 
     )
 

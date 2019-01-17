@@ -5,7 +5,7 @@ import PageHeader from '../template/pageHeader'
 import ProcessoForm from './processoForm'
 import ProcessoList from './processoList'
 
-const URL = 'http://localhost:8080/users' 
+const URL = 'http://localhost:8080/processos' 
 
 export default class Processo extends Component {
 
@@ -41,8 +41,8 @@ export default class Processo extends Component {
     handleAdd(){
         const title = this.state.title
         const body = this.state.body
-        
-        axios.post(URL, {body, title})
+        const author = {id: '123123', username: 'TestFrom'}
+        axios.post(URL, {body, title, author})
             .then(resp => this.refresh())
     }
 
