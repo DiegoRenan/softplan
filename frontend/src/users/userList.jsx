@@ -10,6 +10,11 @@ export default props => {
                 <td>{user.username}</td>
                 <td>{user.role}</td>
                 <td>
+                    <a href={`#/users/${user.id}`}>
+                        <span className="btn btn-default btn-sm glyphicon glyphicon-pencil"></span>
+                    </a>
+                </td>
+                <td>
                     <IconButton style='danger' icon='trash-o'
                         onClick={() => props.handleRemove(user)} />
                 </td>
@@ -24,7 +29,8 @@ export default props => {
                 <tr>
                     <th>Username</th>
                     <th>Role</th>
-                    <th>Ações</th>
+                    <th>Editar</th>
+                    <th>Deletar</th>
                 </tr>
             </thead>
             <tbody>

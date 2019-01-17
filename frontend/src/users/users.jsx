@@ -19,8 +19,10 @@ export default class User extends Component {
 
         this.handleAdd = this.handleAdd.bind(this)
         
-        this.refresh();
+        this.refresh()
     }
+
+  
 
     refresh(){
         axios.get(`${URL}?sort=-createAt`)
@@ -55,19 +57,21 @@ export default class User extends Component {
             .then(resp => this.refresh())
     }
 
+    
     render(){
         return(
             <div>
                 <PageHeader name='Users' small='Cadastro'></PageHeader>
                 <UserForm username={this.state.username}
                     password={this.state.password}
-                    role={this.role}
+                    role={this.state.role}
                     handleChangeUsername={this.handleChangeUsername}
                     handleChangePassword={this.handleChangePassword} 
                     handleChangeRole={this.handleChangeRole} 
                     handleAdd={this.handleAdd}/>
                 <UserList list={this.state.list}
-                    handleRemove={this.handleRemove}/>
+                    handleRemove={this.handleRemove}
+                    />
             </div>
         )
     }

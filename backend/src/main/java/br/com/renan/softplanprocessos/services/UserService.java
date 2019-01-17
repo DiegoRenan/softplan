@@ -54,7 +54,8 @@ public class UserService implements UserDetailsService{
 	}
 	
 	private void updateData(User newObj, User obj) {
-		newObj.setUsername(obj.getUsername());	
+		newObj.setUsername(obj.getUsername());
+		newObj.setRole(obj.getRole());
 	}
 	
 	public void delete(String id) {
