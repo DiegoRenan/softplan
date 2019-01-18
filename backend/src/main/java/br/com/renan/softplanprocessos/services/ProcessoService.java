@@ -36,8 +36,13 @@ public class ProcessoService {
 		return repository.insert(obj);
 	}
 	
+	public List<Processo> findPendentes() {
+		return repository.findPendentes();
+	}
+	
 	public Processo fromDTO(ProcessoDTO objDto) {
 		return new Processo(objDto.getId(), objDto.getDate(), objDto.getTitle(), objDto.getBody(), objDto.getAuthor());
 	}
+	
 	
 }

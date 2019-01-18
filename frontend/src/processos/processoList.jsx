@@ -5,13 +5,14 @@ import Grid from '../template/grid'
 export default props => {
 
     const renderRows = () => {
+        
         const list = props.list || []
 
         return list.map( proc =>
             
             <div className="list-group" key={proc.id}>
                 <a href="#" className="list-group-item list-group-item-success">
-                   {proc.title}
+                   {proc.title} 
                 </a>
                 
                 <li href="#" className="list-group-item ">

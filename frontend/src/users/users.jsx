@@ -22,8 +22,6 @@ export default class User extends Component {
         this.refresh()
     }
 
-  
-
     refresh(){
         axios.get(`${URL}?sort=-createAt`)
             .then((resp) => this.setState({...this.state, username: '',

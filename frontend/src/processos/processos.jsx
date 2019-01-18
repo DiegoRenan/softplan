@@ -5,30 +5,37 @@ import PageHeader from '../template/pageHeader'
 import ProcessoForm from './processoForm'
 import ProcessoList from './processoList'
 
-const URL = 'http://localhost:8080/processos' 
+const URL = 'http://localhost:8080' 
+const URL_USER = 'http://localhost:8080/users'
 
 export default class Processo extends Component {
 
     constructor(props){
         super(props)
 
-        this.state = {date: '', title: '',  body: '', author: [], list: []}
-        
+        this.state = {username: '', role: '', user_id: '' , list: []}
+
         this.handleChangeTitulo = this.handleChangeTitulo.bind(this)
         this.handleChangeBody = this.handleChangeBody.bind(this)
         
         this.handleAdd = this.handleAdd.bind(this)
-        
-        this.refresh()
+      
+        this.findUser()
+    }
+    
+
+    findUser(){
+        axios.get(`${URL_USER}/${this.props.params.user_id}`)
+            .then((resp) =>{
+                console.log(resp.data)
+            })                                                                  
     }
 
     refresh(){
-        axios.get(`${URL}?sort=-createAt`)
-            .then((resp) =>       
-                this.setState({...this.state, date: '', title: '',  body: '', author: [], list: resp.data})
-            )
-                
+        axios.get(`${URL_PROC}?sort=-createAt`)
+            .then((resp) => this.setState({...this.state, list: resp.data}))
     }
+
 
     handleChangeTitulo(e){
         this.setState({ ...this.state, title: e.target.value})
@@ -54,6 +61,7 @@ export default class Processo extends Component {
     render(){
         return(
             <div>
+                
                 <PageHeader name='Processos' small='Cadastro'></PageHeader>
                 <ProcessoForm titulo={this.state.title}
                     body={this.state.body}

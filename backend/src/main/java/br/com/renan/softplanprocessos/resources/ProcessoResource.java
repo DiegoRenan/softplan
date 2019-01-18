@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.renan.softplanprocessos.domain.Processo;
-import br.com.renan.softplanprocessos.domain.User;
 import br.com.renan.softplanprocessos.dto.ProcessoDTO;
-import br.com.renan.softplanprocessos.dto.UserDTO;
 import br.com.renan.softplanprocessos.services.ProcessoService;
 
 @RestController
@@ -44,7 +42,7 @@ public class ProcessoResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
-	//@Secured("ADMINISTRADOR")
+	@Secured("TRIADOR")
 	@CrossOrigin
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody ProcessoDTO objDto){
@@ -52,6 +50,14 @@ public class ProcessoResource {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/pendentes", method=RequestMethod.GET)
+	public ResponseEntity<List<ProcessoDTO>> pendentes(){
+		List<Processo> list = (List<Processo>) service.findPendentes();
+		List<ProcessoDTO> listDTO = list.stream().map(x -> new ProcessoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	
