@@ -4,13 +4,15 @@ import axios from 'axios'
 import PageHeader from '../template/pageHeader'
 import UserForm from './userForm'
 import UserList from './userList'
+import Menu from '../template/menu'
 
 const URL = 'http://localhost:8080/users' 
 
 export default class User extends Component {
     constructor(props){
         super(props)
-        this.state = {username: '', password: '', role: '', list: []}
+        this.state = {user_id: this.props.params.user_id, username: '', password: '', 
+                            role: '', list: []}
 
         this.handleChangeUsername = this.handleChangeUsername.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
@@ -59,6 +61,7 @@ export default class User extends Component {
     render(){
         return(
             <div>
+                <Menu user_id={this.state.user_id}/>
                 <PageHeader name='Users' small='Cadastro'></PageHeader>
                 <UserForm username={this.state.username}
                     password={this.state.password}

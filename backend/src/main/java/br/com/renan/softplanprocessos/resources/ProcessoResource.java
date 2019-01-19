@@ -1,6 +1,7 @@
 package br.com.renan.softplanprocessos.resources;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.renan.softplanprocessos.domain.Processo;
+import br.com.renan.softplanprocessos.dto.AuthorDTO;
+import br.com.renan.softplanprocessos.dto.FeedbackDTO;
 import br.com.renan.softplanprocessos.dto.ProcessoDTO;
 import br.com.renan.softplanprocessos.services.ProcessoService;
 
@@ -42,7 +45,7 @@ public class ProcessoResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
-	@Secured("TRIADOR")
+	//@Secured({"TRIADOR", "ADMINISTRADOR"})
 	@CrossOrigin
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody ProcessoDTO objDto){
@@ -59,6 +62,16 @@ public class ProcessoResource {
 		List<ProcessoDTO> listDTO = list.stream().map(x -> new ProcessoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
-	
+
+	@CrossOrigin
+	@RequestMapping(value="/{id}/feedback", method=RequestMethod.POST)
+	public  ResponseEntity<Void> insertFeedback(@PathVariable String id, @RequestBody FeedbackDTO fbDto){
+		Processo obj = service.findById(id);
+		fbDto.setDate(new Date());
+		obj.getFeedbacks().add(fbDto);
+		obj = service.update(obj);	
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
 	
 }

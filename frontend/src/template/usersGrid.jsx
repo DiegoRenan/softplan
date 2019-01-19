@@ -1,5 +1,6 @@
 import React from 'react'
 import userList from '../users/userList';
+import { Certificate } from 'crypto';
 
 export default props => {
 
@@ -7,7 +8,7 @@ export default props => {
         const list = props.list || []
    
         return list.map( user =>
-            <div className="col-xs-6 col-md-3" key={user.id}>
+            <div className="user-grid" key={user.id}>
                 <a href={`#/user/${user.id}/processos`} className="thumbnail">
                     <h3>{user.username}</h3>
                     Role: {user.role}
@@ -19,8 +20,9 @@ export default props => {
     
     return (
         
-        <div className="row">
-            {userList()}
+        <div className="row ">
+            <center>{userList()}</center>
+            
         </div>
     )
 }

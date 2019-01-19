@@ -1,3 +1,12 @@
 .success {
     color: green;
 }
+
+.user-grid{
+    margin: 0;
+    width: 50%;
+}
+
+.select-redirecionar{
+    float: right;
+}

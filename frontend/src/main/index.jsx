@@ -29,9 +29,8 @@ export default class Home extends Component{
        return( 
             <div>
                 <Grid cols= "12 12 12">
-                    <h1>Processos</h1>
+                    <center><h1>Gerenciar Processos</h1></center>
 
-                    <h3>Select a User:</h3>
                     <UserGrid list={this.state.list} />
                 </Grid>
             </div>

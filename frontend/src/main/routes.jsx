@@ -12,7 +12,7 @@ export default props => (
     <Router history={hashHistory}>
         <Route path='/index' component={Home} />
         <Route path='/user/:user_id/processos' component={Processo} />
-        <Route path='/processos/pendentes' component={ProcPendente} />
+        <Route path='/user/:user_id/processos/pendentes' component={ProcPendente} />
         <Route path='/user/:user_id/users' component={User} />
         <Route path='/user/:user_id/users/:id' component={UserEdit} />
         <Redirect from='*' to='/index' />
