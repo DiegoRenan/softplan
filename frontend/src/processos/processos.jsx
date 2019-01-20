@@ -15,30 +15,45 @@ export default class Processo extends Component {
     constructor(props){
         super(props)
 
-        this.state = {username: '', role: '', user_id: this.props.params.user_id, title: '', body: '', list: []}
+        this.state = {username: '', role: '', user_id: this.props.params.user_id, 
+                                                       title: '', 
+                                                       body: '', 
+                                                       users: '',
+                                                       list: []}
 
-        this.handleChangeTitulo = this.handleChangeTitulo.bind(this)
-        this.handleChangeBody = this.handleChangeBody.bind(this)
+       this.handleChangeTitulo = this.handleChangeTitulo.bind(this)
+       this.handleChangeBody = this.handleChangeBody.bind(this)
         
-        this.handleAdd = this.handleAdd.bind(this)
+       this.handleAdd = this.handleAdd.bind(this)
       
-        this.findUser()
-
-        this.refresh()
+       this.findUser()
+       this.refresh()
+       this.getUsers()
+        
     }
     
 
     findUser(){
-        axios.get(`${URL_USER}/${this.props.params.user_id}`)
+        axios.get(`${URL_USER}/${this.state.user_id}`)
             .then((resp) =>{
                 this.setState({...this.state, user_id: resp.data.id,
                      role: resp.data.role, username: resp.data.username, title: '', body: '', list: []})
+                    
+                    
+                this.refresh()
             })                                                                  
     }
 
     refresh(){
-        axios.get(`${URL_PROC}?sort=-createAt`)
-            .then((resp) => this.setState({...this.state, title: '', body: '', list: resp.data}))
+        axios.get(`${URL_PROC}`)
+            .then((resp) => this.setState({...this.state, title: '', body: '', user_id: this.props.params.user_id, title: '', body: '', list: resp.data}))
+    }
+
+    getUsers(){
+        axios.get(`${URL_USER}?sort=-createAt`)
+            .then((resp) =>{
+                this.setState({...this.state, users: resp.data})
+            } )
     }
 
 
@@ -52,10 +67,19 @@ export default class Processo extends Component {
 
 
     handleAdd(){
-        const title = this.state.title
-        const body = this.state.body
-        const author = {id: '123123', username: 'TestFrom'}
-        axios.post(URL_PROC, {body, title, author})
+        console.log("username")
+        console.log(this.state.username)
+        const processo ={
+            title: this.state.title,
+            body: this.state.body,
+            author: {
+                id: this.state.user_id,
+                name: this.state.username
+            } 
+        }
+
+
+        axios.post(URL_PROC, processo)
             .then(resp => this.refresh())
     }
 
@@ -76,6 +100,8 @@ export default class Processo extends Component {
                     handleAdd={this.handleAdd}/>
                 
                 <ProcessoList list={this.state.list}
+                    user_id={this.props.params.user_id}
+                    users={this.state.users}
                     handleRemove={this.handleRemove}/>
             </div>
         )

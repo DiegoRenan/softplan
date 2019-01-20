@@ -10,3 +10,13 @@
 .select-redirecionar{
     float: right;
 }
+
+.panel-default{
+    margin-bottom: 4rem;
+}
+
+.pendentes{
+    margin: -5px;
+    width: 50%;
+    float: right;
+}

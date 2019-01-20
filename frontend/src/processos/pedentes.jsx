@@ -73,16 +73,7 @@ export default class Home extends Component{
                 name: this.state.select_user_name
             }
         }
-
-        console.log(this.state.processo)
-        
-        // var bodyFormData = new FormData()
-        // bodyFormData.set('id', this.state.processo)
-        // bodyFormData.set('text', text)
-        // bodyFormData.set('author', {'id': this.state.select_user_id, 'name': this.state.select_user_name})
-        // console.log(this.state.processo)
-
-      
+  
         axios.post(`${URL_PROC}/${this.state.processo}/feedback`, feedback)
              .then(resp => this.refresh())
     }

@@ -23,7 +23,7 @@ export default props => {
 
                 <div id="bs-example-navbar-collapse-1" className="collapse navbar-collapse">
                     <ul className="nav navbar-nav">
-                        <li><a href={"#/user/"+props.user_id+"/processos"}>Processos</a></li>
+                        <li><a href={"#/user/"+props.user_id+"/processos/index"}>Processos</a></li>
                         <li><a href={"#/user/"+props.user_id+"/processos/pendentes"}>Pendentes</a></li>
                         <li><a href={"#/user/"+props.user_id+"/users"}>Users</a></li>
                     </ul>

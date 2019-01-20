@@ -1,22 +1,32 @@
 import React from 'react'
+import Moment from 'moment'
+
 import PendentesUsers from './pedentesUsers'
 import Grid from '../template/grid'
+
+Moment.globalFormat = 'D MMM YYYY';
+Moment.globalTimezone = 'America/Los_Angeles';
 
 export default props => {
 
     const renderRows = () => {
         const users = props.users || []
-        const list = props.list || []
-     
+        const list = props.list || []  
+        Moment.globalLocale = 'en'
+
+        console.log(list)
+        
         return list.map( proc =>
             
-            <div className="list-group" key={proc.id} >
-                <div className="list-group-item list-group-item-info">
-                    {proc.title} 
+            <div className="panel panel-default" key={proc.id} >
+                <div className="panel-heading">
+                    <a  href={`#/user/${props.user_id}/processos/${proc.id}/show`}>
+                        {proc.title} by: {this.author.name} date: {Moment(proc.date).format('DD/MM/YYYY')}
+                    </a>
                 </div>
-                <li href="#" className="list-group-item ">
+                <div className="panel-body">
                     {proc.body}
-                </li>
+                </div>
                 
                 <PendentesUsers users={users}
                              select_user_id={props.select_user_id}

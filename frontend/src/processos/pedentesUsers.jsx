@@ -1,4 +1,3 @@
-
 import React from 'react'
 import IconButton from '../template/iconsButton'
 import Grid from '../template/grid'
@@ -17,7 +16,7 @@ export default props => {
     }
 
     return(
-        <div>
+        <div className="pendentes">
             <Grid cols= "12 7 8">
                 <select id={props.processo} defaultValue="default" onChange={props.handleChangeSelectUser} className="form-control  select-redirecionar" >
                     <option disabled value="default">Direcionar para:</option>

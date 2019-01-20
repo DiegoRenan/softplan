@@ -9,7 +9,7 @@ export default props => {
    
         return list.map( user =>
             <div className="user-grid" key={user.id}>
-                <a href={`#/user/${user.id}/processos`} className="thumbnail">
+                <a href={`#/user/${user.id}/processos/index`} className="thumbnail">
                     <h3>{user.username}</h3>
                     Role: {user.role}
                 </a>
