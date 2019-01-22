@@ -12,7 +12,7 @@ export default class User extends Component {
     constructor(props){
         super(props)
         this.state = {user_id: this.props.params.user_id, username: '', password: '', 
-                            role: '', list: []}
+                            role: '', list: [], user_role: ''}
 
         this.handleChangeUsername = this.handleChangeUsername.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
@@ -22,12 +22,23 @@ export default class User extends Component {
         this.handleAdd = this.handleAdd.bind(this)
         
         this.refresh()
+        this.findUser()
     }
 
     refresh(){
         axios.get(`${URL}?sort=-createAt`)
             .then((resp) => this.setState({...this.state, username: '',
                 password: '', role: '', list: resp.data}))
+    }
+
+    findUser(){
+        axios.get(`${URL}/${this.props.params.user_id}`)
+            .then((resp) =>{
+                this.setState({...this.state, user_id: resp.data.id,
+                                                       user_role: resp.data.role, 
+                                                       username: resp.data.username})
+                this.refresh()
+            })                                                                 
     }
 
     handleChangeUsername(e){
@@ -56,24 +67,33 @@ export default class User extends Component {
         axios.delete(`${URL}/${user.id}`)
             .then(resp => this.refresh())
     }
-
     
     render(){
-        return(
-            <div>
-                <Menu user_id={this.state.user_id}/>
-                <PageHeader name='Users' small='Cadastro'></PageHeader>
-                <UserForm username={this.state.username}
-                    password={this.state.password}
-                    role={this.state.role}
-                    handleChangeUsername={this.handleChangeUsername}
-                    handleChangePassword={this.handleChangePassword} 
-                    handleChangeRole={this.handleChangeRole} 
-                    handleAdd={this.handleAdd}/>
-                <UserList list={this.state.list}
-                    handleRemove={this.handleRemove}
-                    />
-            </div>
-        )
+        if(this.state.user_role == "ADMINISTRADOR"){
+            return (
+                <div>
+                    <Menu user_id={this.state.user_id}/>
+                    <PageHeader name='Users' small='Cadastro'></PageHeader>
+                    <UserForm username={this.state.username}
+                        password={this.state.password}
+                        role={this.state.role}
+                        handleChangeUsername={this.handleChangeUsername}
+                        handleChangePassword={this.handleChangePassword} 
+                        handleChangeRole={this.handleChangeRole} 
+                        handleAdd={this.handleAdd}/>
+                    <UserList list={this.state.list}
+                        handleRemove={this.handleRemove}
+                        />
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <Menu user_id={this.state.user_id}/>
+                    <PageHeader name='Users' small='Cadastro'></PageHeader>
+                    Area Restrita
+                </div>
+            )
+        }
     }
 }

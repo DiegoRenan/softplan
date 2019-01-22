@@ -21,8 +21,7 @@ public class Processo implements Serializable{
 	private String title;
 	private String body;
 	private AuthorDTO author;
-	
-	private List<FeedbackDTO> feedbacks = new ArrayList<>();
+	private List<FeedbackDTO> feedback = new ArrayList<>();
 	
 	public Processo() {
 	}
@@ -75,13 +74,17 @@ public class Processo implements Serializable{
 	public void setAuthor(AuthorDTO author) {
 		this.author = author;
 	}
-
-	public List<FeedbackDTO> getFeedbacks() {
-		return feedbacks;
+	
+	public void addFeedback(FeedbackDTO feedbackDTO) {
+		this.feedback.add(feedbackDTO);
 	}
 
-	public void setFeedbacks(List<FeedbackDTO> feedbacks) {
-		this.feedbacks = feedbacks;
+	public List<FeedbackDTO> getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(List<FeedbackDTO> feedback) {
+		this.feedback = feedback;
 	}
 
 	@Override

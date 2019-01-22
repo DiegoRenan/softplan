@@ -23,7 +23,6 @@ export default class Processo extends Component {
 
        this.handleChangeTitulo = this.handleChangeTitulo.bind(this)
        this.handleChangeBody = this.handleChangeBody.bind(this)
-        
        this.handleAdd = this.handleAdd.bind(this)
       
        this.findUser()
@@ -36,17 +35,29 @@ export default class Processo extends Component {
     findUser(){
         axios.get(`${URL_USER}/${this.state.user_id}`)
             .then((resp) =>{
-                this.setState({...this.state, user_id: resp.data.id,
-                     role: resp.data.role, username: resp.data.username, title: '', body: '', list: []})
-                    
-                    
+                this.setState({...this.state, role: resp.data.role, 
+                                              username: resp.data.username, 
+                                              title: '', 
+                                              body: '', 
+                                              list: []})
                 this.refresh()
             })                                                                  
     }
 
     refresh(){
-        axios.get(`${URL_PROC}`)
-            .then((resp) => this.setState({...this.state, title: '', body: '', user_id: this.props.params.user_id, title: '', body: '', list: resp.data}))
+        const url = this.state.role == "TRIADOR" ? URL_PROC : `${URL_PROC}/${this.state.user_id}/pendentes` 
+        console.log(url)
+        axios.get(url)
+            .then((resp) => {
+                this.setState({...this.state, title: '', 
+                                                body: '', 
+                                                user_id: this.props.params.user_id, 
+                                                title: '', 
+                                                body: '', 
+                                                list: resp.data})
+                console.log(resp.data) 
+            })
+                 
     }
 
     getUsers(){
@@ -67,8 +78,6 @@ export default class Processo extends Component {
 
 
     handleAdd(){
-        console.log("username")
-        console.log(this.state.username)
         const processo ={
             title: this.state.title,
             body: this.state.body,
@@ -77,7 +86,6 @@ export default class Processo extends Component {
                 name: this.state.username
             } 
         }
-
 
         axios.post(URL_PROC, processo)
             .then(resp => this.refresh())
@@ -100,6 +108,7 @@ export default class Processo extends Component {
                     handleAdd={this.handleAdd}/>
                 
                 <ProcessoList list={this.state.list}
+                    role={this.state.role}
                     user_id={this.props.params.user_id}
                     users={this.state.users}
                     handleRemove={this.handleRemove}/>

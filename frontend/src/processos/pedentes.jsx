@@ -14,8 +14,9 @@ export default class Home extends Component{
     constructor(props){
         super(props)
 
-        this.state = {user_id: props.params.user_id, role: '',
+        this.state = {user_id: this.props.params.user_id, role: '',
                                                     username: '',
+                                                    user_role: '',
                                                     processo: '', 
                                                     select_user_id: '', 
                                                     select_user_name: '', 
@@ -33,11 +34,12 @@ export default class Home extends Component{
     findUser(){
         axios.get(`${URL_USERS}/${this.props.params.user_id}`)
             .then((resp) =>{
-                this.setState({...this.state, role: resp.data.role, 
-                                              username: resp.data.username,
+                this.setState({...this.state, role: resp.data.role,
+                                              user_role: resp.data.role, 
+                                              username: resp.data.username
                 })
             })                                                                  
-    }
+    }    
 
     refresh(){
         axios.get(`${URL}?sort=-createAt`)
@@ -57,40 +59,51 @@ export default class Home extends Component{
     handleChangeSelectUser(e){
         const index = e.target.selectedIndex
         const username = e.target.children[index].innerText
-        this.setState({ ...this.state, select_user_id: e.target.value, 
-                                       select_user_name: username, 
-                                       processo: e.target.id})
+            this.setState({ ...this.state, select_user_id: e.target.value, 
+                                          select_user_name: username, 
+                                          processo: e.target.id})
     }
 
     handleRedirecionar(){
-        const text = "Aguardando seu parecer"
+        const text = " "
         
         const feedback = {
-            id : this.state.processo,
             text : text,
             author: {
                 id: this.state.select_user_id,
-                name: this.state.select_user_name
+                username: this.state.username
             }
         }
-  
+
         axios.post(`${URL_PROC}/${this.state.processo}/feedback`, feedback)
              .then(resp => this.refresh())
     }
 
     render(){
 
-       return( 
-            <div>
-                <Menu user_id={this.state.user_id}/> 
-                <PageHeader name='Processos' small='Pendentes'></PageHeader>
-                <ProcessoList list={this.state.list}
-                    users={this.state.users}
-                    processo={this.state.processo}
-                    handleChangeSelectUser={this.handleChangeSelectUser}
-                    handleRedirecionar={this.handleRedirecionar}/>
-            </div>
-       )
+        if(this.state.user_role == "TRIADOR"){
+            return( 
+                <div>
+                    <Menu user_id={this.state.user_id}/> 
+                    <PageHeader name='Processos' small='Pendentes'></PageHeader>
+                    <ProcessoList list={this.state.list}
+                        role={this.state.role}
+                        user_id={this.props.params.user_id}
+                        users={this.state.users}
+                        processo={this.state.processo}
+                        handleChangeSelectUser={this.handleChangeSelectUser}
+                        handleRedirecionar={this.handleRedirecionar}/>
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <Menu user_id={this.state.user_id}/>
+                    <PageHeader name='Users' small='Cadastro'></PageHeader>
+                    Area Restrita
+                </div>
+            )
+        }
 
     }
 }

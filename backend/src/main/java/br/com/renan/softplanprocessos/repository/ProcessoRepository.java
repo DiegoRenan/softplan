@@ -12,7 +12,7 @@ import br.com.renan.softplanprocessos.domain.Processo;
 public interface ProcessoRepository extends MongoRepository<Processo, String>{
 	
 	
-	@Query("{ feedbacks: { $eq: []} }")
+	@Query("{feedback: []} ")
 	List<Processo> findPendentes();
-	
+		
 }

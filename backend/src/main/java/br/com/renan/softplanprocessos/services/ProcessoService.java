@@ -54,8 +54,13 @@ public class ProcessoService {
 		return repository.findPendentes();
 	}
 	
+	@CrossOrigin
+	public List<Processo> findPendenteByUser(AuthorDTO objDto) {
+		return repository.findPendentes();
+	}	
+
 	public Processo fromDTO(ProcessoDTO objDto) {
-		return new Processo(objDto.getId(), objDto.getDate(), objDto.getTitle(), objDto.getBody(), objDto.getAuthor());
+		return new Processo(objDto.getId(), objDto.getDate(), objDto.getTitle(), objDto.getBody(), objDto.getAuthor() );
 	}
 	
 	

@@ -1,9 +1,11 @@
 package br.com.renan.softplanprocessos.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,13 +64,37 @@ public class ProcessoResource {
 		List<ProcessoDTO> listDTO = list.stream().map(x -> new ProcessoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/{id}/pendentes", method=RequestMethod.GET)
+	public ResponseEntity<List<ProcessoDTO>> pendentesByUser(@PathVariable String id){
+		List<Processo> list = service.findAll();
+		List<Processo> newList = new ArrayList<>();
+
+		list.forEach(
+				x ->{ 
+					for(FeedbackDTO f : x.getFeedback()) {
+						if(f.getAuthor().getId().equals(id) && f.getText().equals(" ")) {
+							newList.add(x);
+						}
+					}
+				}
+		);
+		
+		List<ProcessoDTO> listDTO = newList.stream().map(x -> new ProcessoDTO(x))
+												 .collect(Collectors.toList());
+											
+												
+		return ResponseEntity.ok().body(listDTO);
+	}
+	
 
 	@CrossOrigin
 	@RequestMapping(value="/{id}/feedback", method=RequestMethod.POST)
 	public  ResponseEntity<Void> insertFeedback(@PathVariable String id, @RequestBody FeedbackDTO fbDto){
 		Processo obj = service.findById(id);
 		fbDto.setDate(new Date());
-		obj.getFeedbacks().add(fbDto);
+		obj.addFeedback(fbDto);
 		obj = service.update(obj);	
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
