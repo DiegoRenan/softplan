@@ -8,6 +8,14 @@
     <li>Spring Boot 2.1.2</li>
     <li>MongoDB server 3.6.3</li>
     <li>NodeJs 8.15.0</li>
+    <li>NPM 6.4.1</li>
+    <li>Maven 4.15.0-43</li>
+</ul>
+
+<h2>Dependencies</h2>
+<hr></hr>
+
+<ul>    
     <li>Webpack 1.14.0</li>
     <li>Webpack Dev Server 1.16.2</li>
     <li>Babel Core 6.22.1</li>
@@ -25,4 +33,27 @@
     <li>React DOM 15.4.2</li>
     <li>React Router 3.0.2</li>
     <li>Axios 0.15.3</li>
+    <li>Moment 2.10.0</li>
 </ul>
+
+<h2>Setting up the development environment</h2>
+
+1. Get the code or clone this repository:
+
+git clone https://github.com/DiegoRenan/softplan.git
+cd softplan
+
+2. Install the required dependencies into frontend
+
+3. Add your database configuration details to backend/src/main/resources/application.properties
+
+4. Start the Mongo Server database
+
+5. Start the Spring Boot server into backend directory
+    mvn spring-boot:run
+
+6. Start the NPM into frontend directory npm run dev
+
+<h2>Documentation</h2>
+<hr></hr>
+
