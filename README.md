@@ -40,7 +40,7 @@
 
 1. Get the code or clone this repository:
 <code>
-    git clone https://github.com/DiegoRenan/softplan.git
+    git clone https://github.com/DiegoRenan/softplan.git <br />
     cd softplan
 </code>
 
@@ -56,6 +56,7 @@
 5. Start the Spring Boot server into backend directory
 <code>
     mvn spring-boot:run
+
 </code>
 
 6. Start the NPM into frontend directory 
@@ -73,6 +74,13 @@ The figure below shows the application layered architecture.
 <center><table><tr>
 <td valign="top" align="left" width="75%">
 <img src="diagrams/layers.png">
+</td></tr></table></center>
+
+<h3>Class Diagram</h3>
+s
+<center><table><tr>
+<td valign="top" align="left" width="75%">
+<img src="diagrams/classes.png">
 </td></tr></table></center>
 
 
