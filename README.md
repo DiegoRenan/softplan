@@ -39,21 +39,40 @@
 <h2>Setting up the development environment</h2>
 
 1. Get the code or clone this repository:
-
-git clone https://github.com/DiegoRenan/softplan.git
-cd softplan
+<code>
+    git clone https://github.com/DiegoRenan/softplan.git
+    cd softplan
+</code>
 
 2. Install the required dependencies into frontend
 
-3. Add your database configuration details to backend/src/main/resources/application.properties
+3. Add your database configuration details to 
+<code>
+    backend/src/main/resources/application.properties
+</code>
 
 4. Start the Mongo Server database
 
 5. Start the Spring Boot server into backend directory
+<code>
     mvn spring-boot:run
+</code>
 
-6. Start the NPM into frontend directory npm run dev
+6. Start the NPM into frontend directory 
+<code>
+    npm run dev
+</code>
 
 <h2>Documentation</h2>
 <hr></hr>
+
+<h3>Architectural Design</h3>
+
+The figure below shows the application layered architecture.
+
+<center><table width="90%"><tr>
+<td valign="top" align="left" width="75%">
+<img src="diagrams/layers.png" width="256" height="192">
+</td></tr></table></center>
+
 
