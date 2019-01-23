@@ -70,9 +70,11 @@
 
 The figure below shows the application layered architecture.
 
-<center><table width="90%"><tr>
+<center><table><tr>
 <td valign="top" align="left" width="75%">
-<img src="diagrams/layers.png" width="256" height="192">
+<img src="diagrams/layers.png">
 </td></tr></table></center>
+
+
 
 
